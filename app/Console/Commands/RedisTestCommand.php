@@ -15,6 +15,7 @@ class RedisTestCommand extends Command
      * @var string
      */
     protected $signature = 'redis:go'; //название команды
+    //команду потом легко запускать нужно просто написать php artisn name command
 
     /**
      * The console command description.
