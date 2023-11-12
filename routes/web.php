@@ -24,14 +24,21 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
-Route::get('/posts', [\App\Http\Controllers\PostController::class, 'index']);
-Route::get('/posts/{id}', [\App\Http\Controllers\PostController::class, 'show']);
+
+
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('/create', [\App\Http\Controllers\PostCacheController::class, 'create']);
+    Route::post('/postss', [\App\Http\Controllers\PostCacheController::class, 'store']);
+    Route::post('/posts/cache', [\App\Http\Controllers\PostCacheController::class, 'storeCache']);
+
+
 
     Route::get('/messages', [\App\Http\Controllers\MessageController::class, 'index']);
     Route::post('/messages', [\App\Http\Controllers\MessageController::class, 'store']);
@@ -43,5 +50,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
+//Route::get('/posts', [\App\Http\Controllers\PostController::class, 'index']); разкаментить для редиса
+//Route::get('/posts/{id}', [\App\Http\Controllers\PostController::class, 'show']);
 require __DIR__ . '/auth.php';
